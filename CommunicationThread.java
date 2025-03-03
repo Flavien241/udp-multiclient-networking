@@ -2,18 +2,17 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-
 public class CommunicationThread implements Runnable {
     private String message;
     private InetAddress sourceAdresse;
     private int sourcePort;
-    private DatagramSocket socket;
+    private DatagramSocket socket;  // ✅ Ajout du socket
 
     public CommunicationThread(String message, InetAddress sourceAdresse, int sourcePort, DatagramSocket socket) {
         this.message = message;
         this.sourceAdresse = sourceAdresse;
         this.sourcePort = sourcePort;
-        this.socket = socket;
+        this.socket = socket;  // ✅ Stocker le socket
     }
 
     @Override
@@ -29,11 +28,11 @@ public class CommunicationThread implements Runnable {
             if (typeMessage.equals("PUBLIC")) {
                 for (String client : UDPServerMulti.clients.keySet()) {
                     if (!UDPServerMulti.clients.get(client).adresse.equals(sourceAdresse) || UDPServerMulti.clients.get(client).port != sourcePort) {
-                        envoyerMessage(client, contenu);
+                        envoyerMessage(client, "📢 " + contenu);
                     }
                 }
             } else if (typeMessage.equals("PRIVATE") && UDPServerMulti.clients.containsKey(destinataire)) {
-                envoyerMessage(destinataire, contenu);
+                envoyerMessage(destinataire, "💌 " + contenu);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +45,7 @@ public class CommunicationThread implements Runnable {
             byte[] bufferReponse = contenu.getBytes();
             DatagramPacket dpReponse = new DatagramPacket(bufferReponse, bufferReponse.length, client.adresse, client.port);
             socket.send(dpReponse);
-            System.out.println("Message envoyé à " + destinataire + " : " + contenu);
+            System.out.println("📩 Message envoyé à " + destinataire + " : " + contenu);
         } catch (Exception e) {
             e.printStackTrace();
         }
