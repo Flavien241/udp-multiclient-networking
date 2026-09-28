@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"ClientInfo"},{"p":"<Unnamed>","l":"CommunicationThread"},{"p":"<Unnamed>","l":"ReceptionThread"},{"p":"<Unnamed>","l":"UDPClientMulti"},{"p":"<Unnamed>","l":"UDPServerMulti"}];updateSearchResults();
